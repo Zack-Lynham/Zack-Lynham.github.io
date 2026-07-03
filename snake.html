@@ -105,7 +105,7 @@
                         moves.push(path[-i]);
                     }
 
-                    if (moves.includes(testid) || appleId.includes(testid)){
+                    if (moves.includes(testid) || appleId.includes(testid) || path.includes(testid)){
 
                     }
                     else {
@@ -271,12 +271,13 @@
                     checkBodyCollision();
                     movesComplete++
                     move = 0;
-                    
+                    points = + (movesComplete/2) + (snakeLen*5)
+                    document.getElementById("points2").innerText = points+ " points";
                     
                     
                         
                 }
-                points = points + (movesComplete/2) + (snakeLen*5)
+                points = + (movesComplete/2) + (snakeLen*5)
                 document.getElementById("points").classList.remove('hidden');
                 document.getElementById("points").innerText = "GAME OVER! "+points+ " points";
                 document.getElementById("startBtn").style.display = "inline-block";
@@ -287,8 +288,9 @@
             function reset() {
             }
             function grid() {
-                if (cheats='149'){
-                amountapple = 100;}
+                if (cheats=='149'){
+                amountapple = 100;
+            }
             }
             window.onload = function() {
                 let cells = '';
@@ -317,8 +319,8 @@
             </p>
         </div>
         <div id="screenMain" class="hidden">
-        <div class="border-4 border-red-500 aspect-square mx-auto">
-            <div class="w-full my-auto grid grid-cols-[repeat(20,minmax(0,1fr))] gap-0" id="screen">
+        <div class="border-4 h-screen border-red-500 aspect-square mx-auto">
+            <div class=" my-auto grid grid-cols-[repeat(20,minmax(0,1fr))] gap-0" id="screen">
             
             </div>
         </div>
@@ -326,8 +328,9 @@
         <div class="text-center hidden text-white text-8xl p-8" id="points">
             <p></p>
         </div>
-        <div id="popUp" class="grid grid-cols-2 gap-12 p-4 fixed bottom-0 left-0">
-            <a href="index2.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
+        <div id="popUp" class="grid grid-cols-3 gap-12 p-4 fixed bottom-0 left-0">
+            <a href="index.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
+            <p class=" bg-white border-2 border-black p-2 rounded-lg" id = "points2"></p>
             <button class="border-0" onclick="grid()"></button>
         </div>
     </body>
