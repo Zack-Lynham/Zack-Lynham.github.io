@@ -1,5 +1,6 @@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             .body {
                 background-image: url("images/snakebody.png");
@@ -116,14 +117,12 @@
                     }
                     
                 }
-                console.log(appleId)
             }
             function addSnake() {
                 if (document.getElementById(id).classList.contains('apple')){
                     document.getElementById(id).classList.remove('apple');
                     snakeLen++
                     path.push(id)
-                    console.log('added id to snake', id, path)
                     index = appleId.indexOf(id);
                     if (index > -1) {
                         appleId.splice(index, 1);
@@ -165,7 +164,7 @@
                 document.getElementById("points").classList.add('hidden');
                 document.getElementById("startBtn").style.display = "none";
                 document.getElementById("screenMain").style.display = "block";
-            
+                document.getElementById("mobile").classList.remove('hidden');
                 
                 move = 0;
                 snakeLen = 1;
@@ -192,7 +191,6 @@
                         }}
                     
                     apple()
-                    console.log(path.length)
                     if (direction == '-x') {
                         if (move == 'left') {
                             let position = id.indexOf(',');
@@ -282,6 +280,7 @@
                 document.getElementById("points").innerText = "GAME OVER! "+points+ " points";
                 document.getElementById("startBtn").style.display = "inline-block";
                 document.getElementById("screenMain").style.display = "none";
+                document.getElementById("mobile").classList.add('hidden');
             } 
             function point(rnd) {    
             }
@@ -301,6 +300,12 @@
                 }
                 document.getElementById('screen').innerHTML = cells;
             };
+            function left(){
+                move= 'left';
+            }
+            function right(){
+                move= 'right';
+            }
         </script>
         <title>Snake</title>
         <link
@@ -319,11 +324,15 @@
             </p>
         </div>
         <div id="screenMain" class="hidden">
-        <div class="border-4 h-screen border-red-500 aspect-square mx-auto">
+        <div class="border-4 max-h-screen border-red-500 aspect-square mx-auto w-full">
             <div class=" my-auto grid grid-cols-[repeat(20,minmax(0,1fr))] gap-0" id="screen">
             
             </div>
         </div>
+        </div>
+        <div id="mobile" class="md:invisible mb-64 grid hidden text-center grid-cols-2 w-full gap-12 p-4 fixed bottom-0 left-0">
+            <button class="bg-white p-4 text-black border rounded-lg" onclick="left()">Left</button>
+            <button class="bg-white p-4 text-black border rounded-lg" onclick="right()">Right</button>
         </div>
         <div class="text-center hidden text-white text-8xl p-8" id="points">
             <p></p>
