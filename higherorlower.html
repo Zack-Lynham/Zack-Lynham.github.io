@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <script>
+            let guess = null;
+            let preValue = 0;
+            let random = 0;
+            function play(){
+                    document.getElementById("hbutton").classList.add("hidden");
+                    document.getElementById("lbutton").classList.add("hidden");
+                    document.getElementById("pbutton").classList.add("hidden");
+                random = Math.floor(Math.random() * 20) + 1;
+                document.getElementById("number").innerText = random;
+                if (preValue > random){
+                    if (guess == "H"){
+                        document.getElementById("win").classList.remove("hidden");
+                        document.getElementById("lose").classList.add("hidden");
+                    }
+                    else{
+                        document.getElementById("lose").classList.remove("hidden");
+                        document.getElementById("win").classList.add("hidden");
+                    }
+                }
+                if (preValue < random){
+                    if (guess == "L"){
+                        document.getElementById("win").classList.remove("hidden");
+                        document.getElementById("lose").classList.add("hidden");
+                    }
+                    else{
+                        document.getElementById("lose").classList.remove("hidden");
+                        document.getElementById("win").classList.add("hidden");
+                    }
+                }
+                console.log (random);
+                console.log (guess);
+                preValue = random
+
+                setTimeout(() => {
+                    document.getElementById("win").classList.add("hidden");
+                    document.getElementById("lose").classList.add("hidden");
+                    document.getElementById("selectedl").classList.add("hidden");
+                    document.getElementById("selectedh").classList.add("hidden");
+                    document.getElementById("hbutton").classList.remove("hidden");
+                    document.getElementById("lbutton").classList.remove("hidden");
+                    document.getElementById("pbutton").classList.remove("hidden");
+                }, 3000);
+            }
+            function higher(){
+                guess = "H";
+                document.getElementById("selectedh").classList.remove("hidden");
+                document.getElementById("selectedl").classList.add("hidden");
+            }
+            function lower(){
+                guess = "L";
+                document.getElementById("selectedl").classList.remove("hidden");
+                document.getElementById("selectedh").classList.add("hidden");
+            }
+        </script>
+        <title>Higher or Lower</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>
+        <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    </head>
+    <body class="bg-gradient-to-t from-blue-700 to-green-700"></body>
+    <p class="text-white text-8xl underline bold text-center mt-16 font-bold">Higher or Lower</p>
+    <div class="fixed bottom-4 left-4">
+        <a href="index2.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
+        </div>
+        <div class="text-center mt-16 grid grid-cols-3">
+        <button class="text-green-500 font-bold text-6xl bg-white/80 p-4 m-8 border-black border-4" id="hbutton" onclick="higher()">Higher</button>
+        <button class=" bg-clip-text text-transparent bg-gradient-to-l from-blue-500 to-green-500 underline font-bold text-6xl" id="pbutton" onclick="play()">Play</button>
+        <button class="text-blue-500 font-bold text-6xl bg-white/80 p-4 m-8 border-black border-4" id="lbutton" onclick="lower()">Lower</button>
+        </div>
+        <div class="w-full text-center fixed bottom-32">
+            <p class="text-white font-bold text-7xl hidden" id="lose">Correct!</p>
+            <p class="text-white font-bold text-7xl hidden" id="win">Incorrect!</p>
+        </div>
+        <div>
+            <p class="text-green-500 text-8xl hidden m-32 font-bold" id="selectedh">Selected: Higher</p>
+            <p class="text-blue-500 text-8xl hidden m-32 font-bold" id="selectedl">Selected: Lower</p>
+        </div>
+            <div class="grid grid-cols-3 w-full fixed bottom-64">
+                <p></p>
+                <p class="mx-auto w-64 h-40 box-border border-8 border-black text-9xl font-bold text-center text-white" id="number"></p>
+                <p></p>
+            </div>
+            <div class="fixed top-4 left-4">
+                <imgclass="w-32"  src="images/logo.png"/>
+            </div>
+    </body>
+</html>

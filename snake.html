@@ -1,0 +1,334 @@
+<html>
+    <head>
+        <style>
+            .body {
+                background-image: url("images/snakebody.png");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+
+            }
+            .apple {
+                background-image: url("images/apple.png");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            .head {
+                background-image: url("images/snakehead.png");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            .apple {
+                background-image: url("images/apple.png");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            
+
+        </style>
+        <script>
+            let move= 0;
+            let path = [];
+            let id = '10,14';
+            let direction = '-x';
+            let gameOver = false;
+            let points = 0;
+            let apples = 0; 
+            let snakeLen = 1;
+            let appleId = [];
+            let score = 0;
+            let movesComplete = 0;
+            let index=0;
+            let delayWait = 1000;
+            let cheats = '';
+            let amountapple =8;
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'ArrowRight') {
+                    move= 'right'
+                }
+                if (event.key === 'ArrowLeft') {
+                    move ='left'
+                }
+                if (event.key === 'd') {
+                    move= 'right'
+                }
+                if (event.key === 'a') {
+                    move ='left'
+                }
+                if (event.key === '9') {
+                    cheats = cheats+'9' 
+                }
+                if (event.key === '4') {
+                    cheats = cheats+'4' 
+                }
+                if (event.key === '1') {
+                    cheats = cheats+'1' 
+                }
+                if (event.key === 't' && cheats == '149') {
+                    delayWait=100;
+                }
+                if (event.key === 'e' && cheats == '149') {
+                    delayWait=400;
+                }
+                if (event.key === 'h') {
+                    cheats = cheats+'6' 
+                }
+                if (event.key === 'i') {
+                    cheats = cheats+'i' 
+                }
+                if (event.key === '6') {
+                    cheats = cheats+'h' 
+                }
+                if (event.key === 't' && cheats == 'hi6') {
+                    delayWait=200;
+                }
+                if (event.key === 'e' && cheats == 'hi6') {
+                    delayWait=400;
+                }
+                if (event.key === 'm' && cheats == 'hi6') {
+                    delayWait=1;
+                }
+            });
+            function delay() {
+                return new Promise(resolve => setTimeout(resolve, delayWait));
+            }
+            function apple() {
+                while (apples != amountapple) {
+                    let moves = [];
+                    random = Math.floor(Math.random() * 20);
+                    random2 = Math.floor(Math.random() * 20);
+                    testid = String(random) + "," + String(random2)
+                    for (let i = 0; i< snakeLen; i++){
+                        moves.push(path[-i]);
+                    }
+
+                    if (moves.includes(testid) || appleId.includes(testid)){
+
+                    }
+                    else {
+                        appleId.push(testid)
+                        console.log(testid)
+                        document.getElementById(testid).classList.add('apple');
+                        apples++
+                    }
+                    
+                }
+                console.log(appleId)
+            }
+            function addSnake() {
+                if (document.getElementById(id).classList.contains('apple')){
+                    document.getElementById(id).classList.remove('apple');
+                    snakeLen++
+                    path.push(id)
+                    console.log('added id to snake', id, path)
+                    index = appleId.indexOf(id);
+                    if (index > -1) {
+                        appleId.splice(index, 1);
+                    }
+                    apples = apples-1;
+                    if (delayWait == 100){
+
+                    }
+                    else if (delayWait<200) {
+                        delayWait= 200
+                    }
+                    else{
+                        delayWait -=40;
+                    }
+                    
+                    
+                    
+                }
+                else{
+                    path.push(id);
+                    path.shift();
+                    
+                }
+            }
+            function checkBodyCollision() {
+                if (document.getElementById(id).classList.contains('body')){
+                    gameOver = true;
+                }
+            }
+            async function start() {
+                for (let x = 0; x < 20; x++) {
+                    for (let y = 0; y < 20; y++) {
+                        id=x + ',' + y
+                        document.getElementById(id).classList.remove('body');
+                        document.getElementById(id).classList.remove('head');
+                        document.getElementById(id).classList.remove('apple');
+                    }
+                }
+                document.getElementById("points").classList.add('hidden');
+                document.getElementById("startBtn").style.display = "none";
+                document.getElementById("screenMain").style.display = "block";
+            
+                
+                move = 0;
+                snakeLen = 1;
+                path = ['10,14'];
+                id = '10,14';
+                movesComplete = 0;
+                direction = '-x';
+                gameOver = false;
+                points = 0;
+                score = 0;
+                appleId = [];
+                apples = 0;
+                delayWait =1000;
+                amountapple =8;
+                document.getElementById(id).classList.add('head');
+
+                while (gameOver == false) {
+                    await delay()
+                    document.getElementById(id).classList.remove('head');
+                    if (snakeLen > 1) {
+                        for (let i = 0; i < path.length; i++) {
+                            document.getElementById(path[i]).classList.remove('body');
+                            document.getElementById(path[i]).classList.add('bg-gray-800');
+                        }}
+                    
+                    apple()
+                    console.log(path.length)
+                    if (direction == '-x') {
+                        if (move == 'left') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position)) + 1 ) + ',' + String(id.substring(position+1))
+                            direction = '-y';
+                        }
+                        else if (move == 'right') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position)) - 1 ) + ',' + String(id.substring(position+1))
+                            direction = '+y';
+                        }
+                        else {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position))) + ',' + String(Number(id.substring(position+1))-1)
+                        }
+                    }
+                    else if (direction == '+x') {
+                        if (move == 'left') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position)) - 1 ) + ',' + String(id.substring(position+1))
+                            direction = '+y';
+                        }
+                        else if (move == 'right') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position)) + 1 ) + ',' + String(id.substring(position+1))
+                            direction = '-y';
+                        }
+                        else {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position))) + ',' + String(Number(id.substring(position+1))+1)
+                        }
+                    }
+                    else if (direction == '-y') {
+                        if (move == 'left') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position))) + ',' + String(Number(id.substring(position+1)) + 1 )
+                            direction = '+x';
+                        }
+                        else if (move == 'right') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position))) + ',' + String(Number(id.substring(position+1)) - 1 )
+                            direction = '-x';
+                        }
+                        else {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position)) + 1) + ',' + String(Number(id.substring(position+1)))
+                        }
+                    }
+                    else if (direction == '+y') {
+                        if (move == 'left') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position))) + ',' + String(Number(id.substring(position+1)) - 1 )
+                            direction = '-x';
+                        }
+                        else if (move == 'right') {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position))) + ',' + String(Number(id.substring(position+1)) + 1 )
+                            direction = '+x';
+                        }
+                        else {
+                            let position = id.indexOf(',');
+                            id = String(Number(id.substring(0,position))-1) + ',' + String(Number(id.substring(position+1)))
+                        }
+                    }
+                    if (document.getElementById(id) == null) {
+                        gameOver = true;
+                        
+                        break
+                    }
+                    addSnake()
+                    if (snakeLen > 1) {
+                        for (let i = path.length - 2; i >= 0; i--) {
+                            document.getElementById(path[i]).classList.add('body');
+                    }}
+                    document.getElementById(path[path.length - 1]).classList.add('head');
+                    checkBodyCollision();
+                    movesComplete++
+                    move = 0;
+                    
+                    
+                    
+                        
+                }
+                points = points + (movesComplete/2) + (snakeLen*5)
+                document.getElementById("points").classList.remove('hidden');
+                document.getElementById("points").innerText = "GAME OVER! "+points+ " points";
+                document.getElementById("startBtn").style.display = "inline-block";
+                document.getElementById("screenMain").style.display = "none";
+            } 
+            function point(rnd) {    
+            }
+            function reset() {
+            }
+            function grid() {
+                if (cheats='149'){
+                amountapple = 100;}
+            }
+            window.onload = function() {
+                let cells = '';
+                for (let x = 0; x < 20; x++) {
+                    for (let y = 0; y < 20; y++) {
+                        cells += '<div id="'+x+","+y+'" class="flex justify-center bg-gray-800 border border-black items-center font-bold text-sm aspect-square"></div>';
+                    }
+                }
+                document.getElementById('screen').innerHTML = cells;
+            };
+        </script>
+        <title>Snake</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>
+        <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    
+    </head>
+    <body class=" bg-[#020202] bg-gradient-to-t from-[#ED021D]/20 to-[#0066FD]/20 h-full">
+        <!-- <div class="bg-gradient-to-t from-[#ED021D]/20 to-[#0066FD]/20 h-full"></div> -->
+        <div class="w-full mx-auto text-center align-center mt-6" id="startBtn">
+            <button  onclick="start()" class="text-black mx-auto text-center bg-yellow-400 text-4xl w-3/4 h-1/6 m-30 border border-black border-4">Start</button>
+            <p class="text-6xl text-white">MOVEMENT:<br>
+                Left - ArrowLeft<br>
+                Right - ArrowRight
+            </p>
+        </div>
+        <div id="screenMain" class="hidden">
+        <div class="border-4 border-red-500 aspect-square mx-auto">
+            <div class="w-full my-auto grid grid-cols-[repeat(20,minmax(0,1fr))] gap-0" id="screen">
+            
+            </div>
+        </div>
+        </div>
+        <div class="text-center hidden text-white text-8xl p-8" id="points">
+            <p></p>
+        </div>
+        <div id="popUp" class="grid grid-cols-2 gap-12 p-4 fixed bottom-0 left-0">
+            <a href="index2.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
+            <button class="border-0" onclick="grid()"></button>
+        </div>
+    </body>
+</html>

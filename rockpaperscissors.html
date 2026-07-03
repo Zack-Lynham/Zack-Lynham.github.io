@@ -1,0 +1,148 @@
+<html>
+    <head>
+        <script>
+            function play(){
+                document.getElementById("play").style.display="none";
+                document.getElementById("R").style.display="none";
+                document.getElementById("S").style.display="none";
+                document.getElementById("P").style.display="none";
+                let random = Math.floor(Math.random() * 3);
+                console.log(random);
+                console.log(window.guess)
+                // rock = 0
+                // paper = 1
+                // scissors = 2
+                if (window.guess == "rock"){
+                    document.getElementById("rock").style.display="block";
+                    if (random == 1){
+                        document.getElementById("lose").style.display="block";
+                        document.getElementById("pickedP").style.display="block";
+                        document.getElementById("compaper").style.display="block";
+                    }
+                    if (random == 2){
+                        document.getElementById("win").style.display="block";
+                        document.getElementById("pickedS").style.display="block";
+                        document.getElementById("comscissors").style.display="block";
+                    }
+                     if (random == 0){
+                        document.getElementById("draw").style.display="block";
+                        document.getElementById("pickedR").style.display="block";
+                        document.getElementById("comrock").style.display="block";
+                    }
+                }
+                if (window.guess == "scissors"){
+                    document.getElementById("scissors").style.display="block";
+                    if (random == 1){
+                        document.getElementById("win").style.display="block";
+                        document.getElementById("pickedP").style.display="block";
+                        document.getElementById("compaper").style.display="block";
+                    }
+                    if (random == 2){
+                        document.getElementById("draw").style.display="block";
+                        document.getElementById("pickedS").style.display="block";
+                        document.getElementById("comscissors").style.display="block";
+                    }
+                     if (random == 0){
+                        document.getElementById("lose").style.display="block";
+                        document.getElementById("pickedR").style.display="block";
+                        document.getElementById("comrock").style.display="block";
+                    }
+                }
+                if (window.guess == "paper"){
+                    document.getElementById("paper").style.display="block";
+                    if (random == 1){
+                        document.getElementById("draw").style.display="block";
+                        document.getElementById("pickedP").style.display="block";
+                        document.getElementById("compaper").style.display="block";
+                    }
+                    if (random == 2){
+                        document.getElementById("lose").style.display="block";
+                        document.getElementById("pickedS").style.display="block";
+                        document.getElementById("comscissors").style.display="block";
+                    }
+                     if (random == 0){
+                        document.getElementById("win").style.display="block";
+                        document.getElementById("pickedR").style.display="block";
+                        document.getElementById("comrock").style.display="block";
+                    }
+                }
+                setTimeout(() => {
+                    document.getElementById("lose").style.display="none";
+                    document.getElementById("win").style.display="none";
+                    document.getElementById("draw").style.display="none";
+                    document.getElementById("play").style.display="inline-block";
+                    document.getElementById("pickedS").style.display="none";
+                    document.getElementById("pickedP").style.display="none";
+                    document.getElementById("pickedR").style.display="none";
+                    document.getElementById("rock").style.display="none";
+                    document.getElementById("scissors").style.display="none";
+                    document.getElementById("paper").style.display="none";
+                    document.getElementById("comrock").style.display="none";
+                    document.getElementById("comscissors").style.display="none";
+                    document.getElementById("compaper").style.display="none";
+                    document.getElementById("R").style.display="block";
+                    document.getElementById("S").style.display="block";
+                    document.getElementById("P").style.display="block";
+                }, 3000);
+        }
+            function rock(){
+                window.guess = "rock"
+                document.getElementById("rock").style.display="block";
+                document.getElementById("scissors").style.display="none";
+                document.getElementById("paper").style.display="none";
+            }
+            function paper(){
+                window.guess = "paper"
+                document.getElementById("paper").style.display="block";
+                document.getElementById("scissors").style.display="none";
+                document.getElementById("rock").style.display="none";
+            }
+            function scissors(){
+                window.guess = "scissors"
+                document.getElementById("scissors").style.display="block";
+                document.getElementById("rock").style.display="none";
+                document.getElementById("paper").style.display="none";
+            }
+            
+        </script>
+        <title></title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>
+        <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    </head>
+    <body class="bg-gradient-to-t from-yellow-400 to-green-400">
+        <div class="text-center mt-6">
+            <button class="font-bold text-9xl underline text-white" id="play" onclick="play()">Play</button>
+            <p class="text-center text-9xl hidden text-white font-bold" id="lose">You Lost...</p>
+            <p class="text-center text-9xl hidden text-white font-bold" id="win">You Win!</p>
+            <p class="text-center text-9xl hidden text-white font-bold" id="draw">Draw!</p>
+            <div class="fixed bottom-32">
+            <p class="text-center text-9xl text-white font-bold hidden" id="pickedR">The Computer has picked rock!</p>
+            <p class="text-center text-9xl text-white font-bold hidden" id="pickedP">The Computer has picked paper!</p>
+            <p class="text-center text-9xl text-white font-bold hidden" id="pickedS">The Computer has picked scissors!</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-8 p-16 text-center">
+            <button class="font-bold text-4xl underline text-black box-border border-4 border-black p-4 bg-gray-400" id="R" onclick="rock()">Rock</button>
+            <button class="font-bold text-4xl underline text-black box-border border-4 border-black p-4 bg-white" id="P" onclick="paper()">Paper</button>
+            <button class="font-bold text-4xl underline text-black box-border border-4 border-black p-4 bg-red-500" id="S" onclick="scissors()">Scissors</button>
+        </div>
+        <div class="grid grid-cols-2 text-center">
+            <p class="text-white font-bold underline text-4xl">You</p>
+            <p class="text-white font-bold underline text-4xl">Computer</p>
+            <img class="w-96 mx-auto hidden" id="rock" src="images/rock.png"/>
+            <img class="w-96 mx-auto hidden" id="paper" src="images/paper.png"/>
+            <img class="w-96 mx-auto hidden" id="scissors" src="images/scissors.png"/>
+            <img class="w-96 mx-auto hidden" id="comrock" src="images/comrock.png"/>
+            <img class="w-96 mx-auto hidden" id="compaper" src="images/compaper.png"/>
+            <img class="w-96 mx-auto hidden" id="comscissors" src="images/comscissors.png"/>
+        </div>
+        <div class="fixed bottom-4 left-4">
+        <a href="index2.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
+        </div>
+        <div class="fixed top-4 left-4">
+            <img class="w-32" src="images/logo.png"/>
+        </div>
+    </body>
+</html>

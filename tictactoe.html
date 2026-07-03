@@ -1,0 +1,202 @@
+<html>
+    <head>
+        <style>
+            .o {
+                background-image: url("images/o.png");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            .x {
+                background-image: url("images/x.png");
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        </style>
+        <script>
+            let array = [
+                    ['','',''],
+                    ['','',''],
+                    ['','','']
+                ];
+            let go = 'o';
+            let goes = 0;
+            let win = false;
+            document.addEventListener("DOMContentLoaded", () => {
+            // document.getElementById("array").style.display = "none";
+            document.getElementById("array").classList.add('hidden');
+            });
+            function changePlayer() {
+                if (go == 'o') {
+                    go = 'x'
+                }
+                else {
+                    go = 'o'
+                }
+            }
+            function reset() {
+                array = [
+                    ['','',''],
+                    ['','',''],
+                    ['','','']
+                ];
+                win = false
+                start();
+                showButton();
+                goes = 0;
+                for (let i=1;i<10;i++){
+                    document.getElementById(i).innerText = '';
+                }
+                document.getElementById("array").classList.add('hidden');
+                for (let i = 1; i<10; i++) {
+                    document.getElementById(i).classList.remove("o");
+                    document.getElementById(i).classList.remove("x");
+                }
+            }
+
+            function start() {
+                let randomgo = Math.floor(Math.random() * 2) + 1;
+                
+                document.getElementById("startBtn").style.display = "none";
+                document.getElementById("array").classList.remove('hidden');
+                if (randomgo == 1) {
+                    go = 'o'
+                }
+                else {
+                    go = 'x'
+                }
+            }
+            function showButton() {
+                document.getElementById("startBtn").style.display = "inline-block";
+                document.getElementById("array").classList.add('hidden');
+            }
+            function showWinner(win) {
+                document.getElementById("winner").innerText = win;
+                document.getElementById("winnerPopUp").style.display = "inline-block";
+            }
+            function checkwinner() {
+                for (let i = 0; i<3; i++) {
+                    if (array[i][0] == array[i][1] && array[i][2]== array[i][0] && array[i][0]!= '') {
+                        win = true;
+                        console.log("True")
+                        showWinner(go + ' Wins')
+                    }
+                }
+                for (let i = 0; i<3; i++) {
+                    if (array[0][i] == array[1][i] && array[2][i]== array[0][i] && array[0][i]!= '') {
+                        win = true;
+                        console.log("True")
+                        showWinner(go + ' Wins')
+                    }
+                }
+                if (array[0][0] == array[1][1] && array[2][2]== array[0][0] && array[0][0]!= '') {
+                    win = true;
+                    console.log("True")
+                    showWinner(go + ' Wins')
+                }
+                else if (array[0][2] == array[1][1] && array[2][0]== array[0][2] && array[2][0]!= '') {
+                    win = true;
+                    console.log("True")
+                    showWinner(go + ' Wins')
+                }
+                else if (goes == 9 && win!=true){
+                    win = true;
+                    console.log('Grid full')
+                    showWinner('Draw')
+                }
+            }
+            function playerGo(x, y, id){
+                console.log(id)
+                // is square empty
+                if (array[x][y] != '') {
+                    console.log('Button already has value')
+                    return
+                }
+                if (win == true) { 
+                    return
+                }
+                // its empty
+                array[x][y] = go;
+                goes++;
+                if (go == 'x') {
+                    document.getElementById(id).style.color = "blue";
+                    document.getElementById(id).classList.add('x');
+                }
+                else {
+                    document.getElementById(id).style.color = "red";
+                    document.getElementById(id).classList.add("o");
+                }
+                // check for a win
+                // for (let rows = 0; rows<3; rows++) {
+                checkwinner();
+                // if (array[0][0] == array[0][1] && array[0][2]== array[0][0]) {
+                //     console.log("True")
+                //     showWinner(go + ' Wins')
+                // }
+
+                // check grid is full
+                
+                changePlayer();
+            }
+            //turn is taken
+            // check if winner
+                // show win screen
+                // show reset
+            // check square empty
+            // check if full if so end game
+            // change player
+        
+        </script>
+        <title>Tic-Tac-Toe</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>
+        <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    
+    </head>
+    <body class="bg-gradient-to-t from-red-600 to-blue-900">
+        <div class="text-center mt-6">
+        <button id="startBtn" onclick="start()" class="text-black bg-yellow-400 text-4xl w-3/4 h-1/6 m-30 border border-black border-4">Start</button>
+        </div>
+        <!-- <div class="my-auto grid grid-cols-3 gap-12 p-4" id="array">
+            <button onclick="playerGo(0, 0, this.id)"  id="1" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(0, 1, this.id)"  id="2" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(0, 2, this.id)"  id="3" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(1, 0, this.id)"  id="4" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(1, 1, this.id)"  id="5" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(1, 2, this.id)"  id="6" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(2, 0, this.id)"  id="7" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(2, 1, this.id)"  id="8" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+            <button onclick="playerGo(2, 2, this.id)"  id="9" class="bg-black box-border w-16 h-16 border-4 border-grey p-32 flex justify-center items-center font-bold text-8xl"> </button>
+        </div> -->
+        <div class="flex justify-center items-center h-screen">
+            <div class="relative max-w-[500px] hidden" id="array">
+                <img src="images/emptytictactoe.png" class="">
+                <div class="absolute grid grid-cols-3 inset-0 p-[18%_15%_20%_16%]">
+                    <button onclick="playerGo(0, 0, this.id)"  id="1" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(0, 1, this.id)"  id="2" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(0, 2, this.id)"  id="3" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(1, 0, this.id)"  id="4" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(1, 1, this.id)"  id="5" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(1, 2, this.id)"  id="6" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(2, 0, this.id)"  id="7" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(2, 1, this.id)"  id="8" class="flex justify-center items-center font-bold text-8xl"> </button>
+                    <button onclick="playerGo(2, 2, this.id)"  id="9" class="flex justify-center items-center font-bold text-8xl"> </button>
+            
+                </div>
+            </div>
+        </div>
+        <div id="popUp" class="grid grid-cols-2 gap-12 p-4 fixed bottom-0 left-0">
+            <button onclick="reset()" class=" bg-white border-2 border-black p-2 rounded-lg">RESET ></button>
+            <a href="index2.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
+
+        </div>
+        <div id="winnerPopUp" class="hidden absolute top-5 right-5">
+            <p id="winner" class="text-center text-black text-6xl bg-white border-2 border-black p-4 rounded-lg"></p>
+        </div>
+        <div class="fixed top-4 left-4">
+            <img class="w-32" src="images/logo.png"/>
+        </div>
+    </body>
+</html>

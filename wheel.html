@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <script>
+            points = 0
+            function start() {
+                document.getElementById("pointsSystem").style.display = "none";
+                document.getElementById("startBtn").style.display = "none";
+                document.getElementById("wheel").style.display = "grid";
+                document.getElementById('spinner').classList.add('animate-spin');
+                let randomFloat = Math.floor(Math.random() * 7) + 1;
+                console.log(randomFloat)
+                let timeout = (3000) + ((1000/7) * randomFloat)
+                setTimeout(() => {
+                    document.getElementById('spinner').style.animationPlayState = 'paused';
+                    document.getElementById("points").classList.remove('hidden');
+                }, timeout);
+                console.log('stopped')
+                //1 yellow
+                //2 orange
+                //3 red
+                //4 violet
+                //5 purple
+                //6 blue
+                //7 green
+                point(randomFloat)
+                
+                document.getElementById("points").style.display = "inner-block";
+                document.getElementById("points").innerText = points+ " points";
+            }   
+            function point(rnd) {
+                if (rnd == 1) {
+                    points = points+ 10
+                }
+                else if (rnd == 2) {
+                    points = points+ -50
+                }
+                else if (rnd == 3) {
+                    points = points+ 25
+                }
+                else if (rnd == 4) {
+                    points = points+ 100
+                }
+                else if (rnd == 5) {
+                    points = points+ 10
+                }
+                else if (rnd == 6) {
+                    points = points+ -50
+                }
+                else if (rnd == 7) {
+                    points = points+ 75
+                }
+                return points
+                
+            }
+            function reset() {
+                document.getElementById("pointsSystem").style.display = "inline-block";
+                document.getElementById("startBtn").style.display = "inline-block";
+                document.getElementById("wheel").style.display = "none";
+                document.getElementById("points").classList.add('hidden');
+                document.getElementById('spinner').classList.remove('animate-spin');
+                document.getElementById('spinner').style.animationPlayState = 'running';
+            }
+        </script>
+        <title>Wheel-Of-Fortune</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css"/>
+        <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    
+    </head>
+    <body class="bg-gradient-to-t from-sky-500 to-blue-900">
+        <div class="text-center mt-6">
+        <button id="startBtn" onclick="start()" class="text-black bg-yellow-400 text-6xl w-3/4 h-1/6 m-30 border border-black border-4">Start</button>
+        </div>
+        <!-- <div class="item-center absolute " id="spinner">
+            <img class="" src="images/spinner.png" />
+        </div> -->
+        <div id="wheel" class="p-4 relative w-2/3 items-center hidden place-items-center mt-8">
+            <p class="text-4xl p-8 border border-black bg-black text-yellow-400 w-full fixed top-4 right-0 left-96">WHEEL OF FORTUNE</p>
+            <img id="spinner" 
+         src="images/spinner.png" 
+         alt="Wheel">
+        <img src="images/triangle.png" class="absolute w-32 text-center bottom-0 " >
+        </div>
+        <div>
+            <p id="points" class="font-bold text-8xl text-black p-4 bg-white m-8 border border-black hidden"></p>
+            <p id="pointsSystem" class="font-bold text-4xl text-black p-4 bg-white m-8 border border-black">
+                Green - 75 points<br>
+                Blue - -50 points<br>
+                Purple - 10 points<br>
+                Violet - 100 points<br>
+                Red - 25 points<br>
+                Orange - -50 points<br>
+                Yellow - 10 points
+            </p>
+        </div>
+        <div id="popUp" class="grid grid-cols-2 gap-12 p-4 fixed bottom-0 left-0">
+            <button onclick="reset()" class=" bg-white border-2 border-black p-2 rounded-lg">RESET WHEEL ></button>
+            <a href="index2.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
+        </div>
+        <div class="fixed top-4 left-4">
+            <img class="w-32" src="images/logo.png"/>
+        </div>
+    </body>
+</html>
