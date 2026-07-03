@@ -289,7 +289,11 @@
             function grid() {
                 if (cheats=='149'){
                 amountapple = 100;
-            }
+            }}
+            function gridmobile() {
+                
+                amountapple = 100;
+            
             }
             window.onload = function() {
                 let cells = '';
@@ -334,13 +338,14 @@
             <button class="bg-white p-4 text-black border rounded-lg" onclick="left()">Left</button>
             <button class="bg-white p-4 text-black border rounded-lg" onclick="right()">Right</button>
         </div>
-        <div class="text-center hidden text-white text-8xl p-8" id="points">
+        <div class="text-center hidden text-white text-6xl p-8" id="points">
             <p></p>
         </div>
-        <div id="popUp" class="grid grid-cols-3 gap-12 p-4 fixed bottom-0 left-0">
+        <div id="popUp" class="grid grid-cols-4 gap-8 p-4 fixed bottom-0 left-0">
             <a href="index.html" class=" bg-white border-2 border-black p-2 rounded-lg">HOME ></a>
             <p class=" bg-white border-2 border-black p-2 rounded-lg" id = "points2"></p>
-            <button class="border-0" onclick="grid()"></button>
+            <button class="border-0 md:visible" onclick="grid()"></button>
+            <button class="border-0 md:invisible p-3" onclick="gridmobile()"></button>
         </div>
     </body>
 </html>
